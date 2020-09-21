@@ -58,7 +58,7 @@ export default class App {
      * @returns string  Url to API
      */
     buildRequestUrl(options: requestOptions): string {
-        if (!this.props.snowInstallInstance || !this.props.appSysID || !this.props.scope)
+        if (!this.props.snowInstallInstance || (!this.props.appSysID && !this.props.scope))
             throw new Error(Errors.INCORRECT_CONFIG)
 
         const params: string = this.buildParams(options)

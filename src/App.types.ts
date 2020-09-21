@@ -1,5 +1,3 @@
-import { AxiosResponse } from 'axios'
-
 export type versionType = string
 
 export interface User {
@@ -20,25 +18,12 @@ export interface requestOptions extends Params {
     version: versionType;
 }
 
-export interface ScopedVersion {
-    scope: string;
-    version: versionType;
-}
-
 export interface ErrorResult {
     status: string;
     status_label: string;
     status_message: string;
     status_detail: string;
     error: string;
-}
-
-export interface AppVersionResponse extends AxiosResponse {
-    data: {
-        result: {
-            version: versionType,
-        },
-    };
 }
 
 export enum Errors {
