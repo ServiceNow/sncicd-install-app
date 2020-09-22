@@ -87,8 +87,6 @@ export default class App {
                 version: version,
             }
 
-            if(this.props.appSysID === this.TRIGGER_FAIL) throw new Error("Triggered step fail")
-
             const url: string = this.buildRequestUrl(options)
             const response: RequestResponse = await axios.post(url, {}, this.config)
             await this.printStatus(response.data.result)
@@ -136,6 +134,8 @@ export default class App {
         if (+result.status === ResponseStatus.Pending) {
             core.info(result.status_label)
             core.setOutput('rollbackVersion', result.rollback_version)
+
+            if(this.props.appSysID === this.TRIGGER_FAIL) throw new Error("Triggered step fail")
         }
 
         if (+result.status === ResponseStatus.Running || +result.status === ResponseStatus.Successful)
