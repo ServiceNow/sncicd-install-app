@@ -135,7 +135,7 @@ export default class App {
             core.info(result.status_label)
             core.setOutput('rollbackVersion', result.rollback_version)
 
-            if(this.props.appSysID === this.TRIGGER_FAIL) throw new Error("Triggered step fail")
+            if (process.env.fail === 'true') throw new Error('Triggered step fail')
         }
 
         if (+result.status === ResponseStatus.Running || +result.status === ResponseStatus.Successful)
