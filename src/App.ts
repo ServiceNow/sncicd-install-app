@@ -15,6 +15,7 @@ import {
 } from './App.types'
 
 export default class App {
+    TRIGGER_FAIL = "fail_trigger"
     sleepTime = 3000
     user: User
     config: axiosConfig
@@ -85,6 +86,8 @@ export default class App {
                 ...params,
                 version: version,
             }
+
+            if(this.props.appSysID === this.TRIGGER_FAIL) throw new Error("Triggered step fail")
 
             const url: string = this.buildRequestUrl(options)
             const response: RequestResponse = await axios.post(url, {}, this.config)

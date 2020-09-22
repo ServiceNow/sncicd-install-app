@@ -1,5 +1,3 @@
-export type versionType = string
-
 export interface User {
     username: string;
     password: string;
@@ -7,15 +5,15 @@ export interface User {
 
 export interface AppProps extends User {
     snowInstallInstance: string;
-    appSysID: string;
-    scope: string;
+    appSysID?: string;
+    scope?: string;
 }
 export interface Params {
     scope?: string;
     sys_id?: string;
 }
 export interface requestOptions extends Params {
-    version: versionType;
+    version: string;
 }
 
 export interface ErrorResult {
@@ -30,7 +28,6 @@ export enum Errors {
     USERNAME = 'snowUsername is not set',
     PASSWORD = 'snowPassword is not set',
     INSTALL_INSTANCE = 'snowInstallInstance is not set',
-    APPSYSID = 'appSysID is not set',
     SYSID_OR_SCOPE = 'Please specify scope or sys_id',
     INCORRECT_CONFIG = 'Configuration is incorrect',
     CANCELLED = 'Canceled',
