@@ -28,9 +28,7 @@ export const run = (): void => {
         if (!appScope && !appSysID) {
             errors.push(Errors.SYSID_OR_SCOPE)
         }
-        if (!appSysID) {
-            errors.push(Errors.APPSYSID)
-        }
+
         if (errors.length) {
             core.setFailed(`${errors.join('. ')}${configMsg}`)
         } else {

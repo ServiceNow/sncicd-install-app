@@ -131,12 +131,12 @@ export default class App {
      */
     async printStatus(result: RequestResult): Promise<void> {
         if (+result.status === ResponseStatus.Pending) {
-            console.log(result.status_label)
+            core.info(result.status_label)
             core.setOutput('rollbackVersion', result.rollback_version)
         }
 
         if (+result.status === ResponseStatus.Running || +result.status === ResponseStatus.Successful)
-            console.log(`${result.status_label}: ${result.percent_complete}%`)
+            core.info(`${result.status_label}: ${result.percent_complete}%`)
 
         // Recursion to check the status of the request
         if (+result.status < ResponseStatus.Successful) {
@@ -148,8 +148,8 @@ export default class App {
         } else {
             // Log the success result, the step of the pipeline is success as well
             if (+result.status === ResponseStatus.Successful) {
-                console.log(result.status_message)
-                console.log(result.status_detail)
+                core.info(result.status_message)
+                core.info(result.status_detail)
             }
 
             // Log the failed result, the step throw an error to fail the step
