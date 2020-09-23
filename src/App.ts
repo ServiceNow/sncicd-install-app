@@ -15,7 +15,7 @@ import {
 } from './App.types'
 
 export default class App {
-    TRIGGER_FAIL = "fail_trigger"
+    TRIGGER_FAIL = 'fail_trigger'
     sleepTime = 3000
     user: User
     config: axiosConfig
@@ -134,8 +134,6 @@ export default class App {
         if (+result.status === ResponseStatus.Pending) {
             core.info(result.status_label)
             core.setOutput('rollbackVersion', result.rollback_version)
-
-            if (process.env.fail === 'true') throw new Error('Triggered step fail')
         }
 
         if (+result.status === ResponseStatus.Running || +result.status === ResponseStatus.Successful)
@@ -149,6 +147,8 @@ export default class App {
             // Call itself if the request in the running or pending state
             await this.printStatus(response.data.result)
         } else {
+            // for testing only!
+            if (process.env.fail === 'true') throw new Error('Triggered step fail')
             // Log the success result, the step of the pipeline is success as well
             if (+result.status === ResponseStatus.Successful) {
                 core.info(result.status_message)
