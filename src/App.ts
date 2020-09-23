@@ -36,7 +36,10 @@ export default class App {
             password: props.password,
         }
         this.config = {
-            headers: { Accept: 'application/json' },
+            headers: {
+                'User-Agent': 'sncicd_extint_github',
+                Accept: 'application/json'
+            },
             auth: this.user,
         }
     }
@@ -59,7 +62,7 @@ export default class App {
      * @returns string  Url to API
      */
     buildRequestUrl(options: requestOptions): string {
-        if (!this.props.snowInstallInstance || (!this.props.appSysID && !this.props.scope))
+        if (!this.props.snowInstallInstance || (!options.sys_id && !options.scope))
             throw new Error(Errors.INCORRECT_CONFIG)
 
         const params: string = this.buildParams(options)
