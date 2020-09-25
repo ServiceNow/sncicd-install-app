@@ -37,6 +37,7 @@ Create secrets called
 ## Step 3: Configure the GitHub action
 ```yaml
 - name: Install Application 
+  id: install_app # id of the step
   uses: <url to the repository with action> # like username/repo-name
   with:
     version: ${{steps.publish_app.outputs.newVersion}}
