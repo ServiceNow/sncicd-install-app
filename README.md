@@ -38,7 +38,7 @@ Create secrets called
 ```yaml
 - name: Install Application 
   id: install_app # id of the step
-  uses: <url to the repository with action> # like username/repo-name
+  uses: ServiceNow/sncicd_install_app # like username/repo-name
   with:
     version: ${{steps.publish_app.outputs.newVersion}}
   env:
