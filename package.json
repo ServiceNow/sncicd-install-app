@@ -2,9 +2,9 @@
   "name": "install_app_repo",
   "version": "1.0.0",
   "description": "Installs the specified application from the application repository onto the local instance.",
-  "main": "./.github/actions/install_app/index.ts",
+  "main": "index.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --outDir lib",
     "test": "tsc --noEmit && jest unit --runInBand",
     "integration": "tsc --noEmit && jest integration --runInBand",
     "lint": "eslint . --ext .ts",
@@ -14,16 +14,14 @@
     "type": "git",
     "url": "git+https://github.com/vvoloshchuk/install_app.git"
   },
-  "author": "",
+  "author": "SoftServe inc.",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/vvoloshchuk/install_app/issues"
   },
   "homepage": "https://github.com/vvoloshchuk/install_app#readme",
   "devDependencies": {
-    "@types/axios": "^0.14.0",
     "@types/jest": "^26.0.12",
-    "@types/nock": "^11.1.0",
     "@types/node": "^14.6.2",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",

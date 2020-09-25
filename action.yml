@@ -9,4 +9,4 @@ outputs:
     description: "Previously installed app's version, used to roll-back task"
 runs:
   using: 'node12'
-  main: 'index.js'
+  main: './lib/index.js'

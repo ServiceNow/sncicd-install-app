@@ -38,7 +38,7 @@ export default class App {
         this.config = {
             headers: {
                 'User-Agent': 'sncicd_extint_github',
-                Accept: 'application/json'
+                Accept: 'application/json',
             },
             auth: this.user,
         }
