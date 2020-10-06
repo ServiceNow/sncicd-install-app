@@ -1,4 +1,4 @@
-# ServiceNow Install Application
+# ServiceNow CI/CD GitHub Action for Install Application
 
 Installs the specified application from the application repository onto the local instance.
 
