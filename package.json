@@ -1,5 +1,5 @@
 {
-  "name": "install_app_repo",
+  "name": "sncicd-install-app",
   "version": "1.0.0",
   "description": "Installs the specified application from the application repository onto the local instance.",
   "main": "index.ts",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ServiceNow/sncicd_install_app.git"
+    "url": "git+https://github.com/ServiceNow/sncicd-install-app.git"
   },
   "author": "SoftServe inc.",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ServiceNow/sncicd_install_app/issues"
+    "url": "https://github.com/ServiceNow/sncicd-install-app/issues"
   },
-  "homepage": "https://github.com/ServiceNow/sncicd_install_app#readme",
+  "homepage": "https://github.com/ServiceNow/sncicd-install-app#readme",
   "devDependencies": {
     "@types/jest": "^26.0.12",
     "@types/node": "^14.6.2",
