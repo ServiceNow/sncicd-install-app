@@ -1,5 +1,5 @@
 name: 'ServiceNow CI/CD Install App'
-description: 'Installs the specified application from the application repository onto the local instance.'
+description: 'Installs the specified application from the application repository onto the specified instance.'
 author: "ServiceNow"
 inputs:
   version:
