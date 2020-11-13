@@ -1,5 +1,6 @@
 name: 'ServiceNow CI/CD Install App'
 description: 'Installs the specified application from the application repository onto the local instance.'
+author: "ServiceNow"
 inputs:
   version:
     description: "Application version to install"
@@ -10,3 +11,6 @@ outputs:
 runs:
   using: 'node12'
   main: './lib/index.js'
+branding:
+  icon: 'refresh-ccw'
+  color: 'green'
