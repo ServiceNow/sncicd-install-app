@@ -8,6 +8,8 @@ Installs the specified application from the application repository onto the loca
 - instance URLs for your dev, test, prod, etc. environments
 - sys_id or scope for your app
 - sys_id for your ATF Test Suite
+- base_app_version(optional)
+- auto_upgrade_base_app(optional)
 
 ## Step 2: Configure Secrets in your GitHub repository
 On GitHub, go in your repository settings, click on the secret _Secrets_ and create a new secret.
@@ -34,6 +36,8 @@ https://github.com/ServiceNow/sncicd_githubworkflow
     snowInstallInstance: ${{ secrets.SNOW_INSTALL_INSTANCE }}
     appSysID: ${{ secrets.APP_SYS_ID }}
     appScope: ${{ secrets.APP_SCOPE }}
+    baseAppVersion: ${{ secrets.SNOW_BASE_APP_VERSION }}
+    autoUpgradeBaseApp: ${{ secrets.SNOW_AUTO_UPGRADE_BASE_APP }}
 ```
 Inputs:
 - **version** - Application version to install. Takes the version from the publish application step. steps._**publish_app**_.outputs.newVersion is an id of the step
@@ -47,6 +51,8 @@ Environment variable should be set up in the Step 1
 - snowInstallInstance - ServiceNow instance where application will be installed
 - appSysID - Required if app_scope is not specified. The sys_id of the application
 - appScope - Required if app_sys_id is not specified. The scope name of the application, such as x_aah_custom_app
+- baseAppVersion - Only applicable if Application Customization is active. Version of the base application on which to apply the customizations
+- autoUpgradeBaseApp - Only applicable if Application Customization is active and the associated application is a higher version than the currently installed version(Default: false)
 
 # Contributing
 

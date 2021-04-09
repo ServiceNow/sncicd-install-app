@@ -4,7 +4,9 @@ import App from '../App'
 import { AppProps, Errors, requestOptions, RequestResponse } from '../App.types'
 
 describe(`App lib`, () => {
-    let props: AppProps
+    let props: AppProps;
+    let options: requestOptions;
+
     const inputs: any = {
         version: '1.0.1',
     }
@@ -22,28 +24,56 @@ describe(`App lib`, () => {
     })
 
     beforeEach(() => {
-        props = { appSysID: '', password: '', scope: '', snowInstallInstance: 'test', username: '' }
+        props = { 
+            username: 'abc',
+            password: 'def', 
+            appSysID: '123',
+            scope: 'xyz', 
+            snowInstallInstance: 'test',
+        }
+
+        options = { 
+            sys_id: props.appSysID, 
+            version: '1.1.1',
+            base_app_version: '1.0.0',
+            auto_upgrade_base_app: false,
+        }
     })
+
     describe(`builds request url`, () => {
-        it(`with correct params`, () => {
-            props.appSysID = '123'
+        it(`should return valid URL if all params are defined and correct`, () => {
+            const app = new App(props);
+            expect(app.buildRequestUrl(options)).toEqual(
+                `https://${props.snowInstallInstance}.service-now.com/api/sn_cicd/app_repo/install?sys_id=${options.sys_id}&version=${options.version}&base_app_version=${options.base_app_version}&auto_upgrade_base_app=${options.auto_upgrade_base_app}`,
+            )
+        })
 
-            const options: requestOptions = { sys_id: props.appSysID, version: '1.1.1' }
-            const app = new App(props)
-
+        it(`should ignore empty params`, () => {
+            options.base_app_version = '';
+            options.auto_upgrade_base_app = undefined;
+            
+            const app = new App(props);
             expect(app.buildRequestUrl(options)).toEqual(
                 `https://${props.snowInstallInstance}.service-now.com/api/sn_cicd/app_repo/install?sys_id=${options.sys_id}&version=${options.version}`,
             )
         })
-        it(`without instance parameter`, () => {
+        
+        it(`should throw an error without instance parameter`, () => {
             props.snowInstallInstance = ''
-            props.appSysID = '123'
-            const options: requestOptions = { scope: props.scope, sys_id: props.appSysID, version: '1.1.1' }
             const app = new App(props)
 
             expect(() => app.buildRequestUrl(options)).toThrow(Errors.INCORRECT_CONFIG)
         })
-        it(`with just sys_id parameter`, () => {
+
+        it(`should fail without appScope or sys_id`, () => {
+            options.sys_id = '';
+            options.scope = '';
+            const app = new App(props);
+
+            expect(() => app.buildRequestUrl(options)).toThrow(Errors.INCORRECT_CONFIG);
+        })
+
+        it(`should works with just sys_id parameter`, () => {
             props.appSysID = '123'
             const options: requestOptions = { sys_id: props.appSysID, version: '1.1.1' }
             const app = new App(props)
@@ -52,7 +82,8 @@ describe(`App lib`, () => {
                 `https://${props.snowInstallInstance}.service-now.com/api/sn_cicd/app_repo/install?sys_id=${options.sys_id}&version=${options.version}`,
             )
         })
-        it(`with just scope parameter`, () => {
+
+        it(`should works with just scope parameter`, () => {
             props.scope = '123'
             const options: requestOptions = { scope: props.scope, version: '1.1.1' }
             const app = new App(props)
@@ -104,12 +135,4 @@ describe(`App lib`, () => {
             expect(() => app.getInputVersion()).toThrow(Errors.MISSING_VERSION)
         })
     })
-    // it(`sleep throttling`, async done => {
-    //     props.appSysID = '123'
-    //     const app = new App(props)
-    //     const time = 2500
-    //     setTimeout(() => done(new Error("it didn't resolve or took longer than expected")), time)
-    //     await app.sleep(time - 500)
-    //     done()
-    // })
 })

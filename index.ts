@@ -14,6 +14,7 @@ export const run = (): void => {
             snowInstallInstance = '',
             appSysID = '',
             appScope = '',
+            appDebug = false,
         } = process.env
 
         if (!snowUsername) {
@@ -38,6 +39,7 @@ export const run = (): void => {
                 username: snowUsername,
                 password: snowPassword,
                 scope: appScope,
+                appDebug: (appDebug === 'true') ? true : false,
             }
             const app = new App(props)
 
