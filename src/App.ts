@@ -47,12 +47,14 @@ export default class App {
     buildParams(options: requestOptions): string {
         return (
             Object.keys(options)
-                .filter(key => options.hasOwnProperty(key))
+                // @ts-ignore
+                .filter(key => options.hasOwnProperty(key) && options[key] !== undefined && options[key] !== '')
                 // @ts-ignore
                 .map(key => `${key}=${encodeURIComponent(options[key])}`)
                 .join('&')
         )
     }
+
     /**
      * Takes options object, convert it to encoded URI string
      * and append to the request url
@@ -70,6 +72,39 @@ export default class App {
     }
 
     /**
+     * Prepares object with key=>value pairs for the request
+     * and append to the request url
+     *
+     * @returns requestOptions  Request Optionsobject
+     */
+    getRequestOptions(): requestOptions {
+        const version = this.getInputVersion()
+        const params: Params = {}
+        if (!this.props.appSysID) {
+            params.scope = this.props.scope
+        } else {
+            params.sys_id = this.props.appSysID
+        }
+
+        const {
+            baseAppVersion,
+            autoUpgradeBaseApp,
+        } = process.env;
+
+        const options: requestOptions = {
+            ...params,
+            ...(baseAppVersion && {base_app_version: baseAppVersion}),
+            version,
+        }
+        
+        if (autoUpgradeBaseApp === 'true' || autoUpgradeBaseApp === 'false') {
+            options.auto_upgrade_base_app = autoUpgradeBaseApp === 'true' ? true : undefined;
+        }
+
+        return options;
+    }
+
+    /**
      * Checks version
      * Increment version
      * Makes the request to SNow api install_app
@@ -78,19 +113,15 @@ export default class App {
      */
     async installApp(): Promise<void | never> {
         try {
-            const version = this.getInputVersion()
-            const params: Params = {}
-            if (!this.props.appSysID) {
-                params.scope = this.props.scope
-            } else {
-                params.sys_id = this.props.appSysID
-            }
-            const options: requestOptions = {
-                ...params,
-                version: version,
-            }
+            const options: requestOptions = this.getRequestOptions()
 
             const url: string = this.buildRequestUrl(options)
+
+            // Show generated URL in Debug Mode
+            if (this.props.appDebug) {
+                core.info(`URL=${url}`);
+            }
+
             const response: RequestResponse = await axios.post(url, {}, this.config)
             await this.printStatus(response.data.result)
         } catch (error) {
@@ -177,6 +208,7 @@ export default class App {
      */
     getInputVersion(): string {
         const version: string | undefined = core.getInput('version')
+
         if (!version) throw new Error(Errors.MISSING_VERSION)
         return version
     }

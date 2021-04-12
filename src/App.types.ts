@@ -7,6 +7,7 @@ export interface AppProps extends User {
     snowInstallInstance: string;
     appSysID?: string;
     scope?: string;
+    appDebug?: boolean,
 }
 export interface Params {
     scope?: string;
@@ -14,6 +15,8 @@ export interface Params {
 }
 export interface requestOptions extends Params {
     version: string;
+    auto_upgrade_base_app?: boolean;
+    base_app_version?: string;
 }
 
 export interface ErrorResult {
