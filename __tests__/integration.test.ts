@@ -5,11 +5,11 @@ import { Errors } from '../src/App.types'
 describe('Install app', () => {
     const original = process.env
     const envs = {
+        nowUsername: 'test',
+        nowPassword: 'test',
         appSysID: '',
-        password: 'test',
         scope: '',
-        snowInstallInstance: 'test',
-        username: 'test',
+        nowInstallInstance: 'test',
     }
     beforeEach(() => {
         jest.resetModules()
@@ -30,7 +30,7 @@ describe('Install app', () => {
     it('app_sys_id and not app_scope', () => {
         // simulate the secrets are not set
         process.env = {
-            snowInstallInstance: 'test',
+            nowInstallInstance: 'test',
             appSysID: '123',
         }
         const errors = [Errors.USERNAME, Errors.PASSWORD].join('. ')
@@ -41,6 +41,7 @@ describe('Install app', () => {
     })
 
     it('success with creds', () => {
+        process.env.appSysID = '123'
         // do not set process env
         // workflow run the tests
         // it will take envs from the workflow
