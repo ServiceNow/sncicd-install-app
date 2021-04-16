@@ -64,11 +64,11 @@ export default class App {
      * @returns string  Url to API
      */
     buildRequestUrl(options: requestOptions): string {
-        if (!this.props.snowInstallInstance || (!options.sys_id && !options.scope))
+        if (!this.props.nowInstallInstance || (!options.sys_id && !options.scope))
             throw new Error(Errors.INCORRECT_CONFIG)
 
         const params: string = this.buildParams(options)
-        return `https://${this.props.snowInstallInstance}.service-now.com/api/sn_cicd/app_repo/install?${params}`
+        return `https://${this.props.nowInstallInstance}.service-now.com/api/sn_cicd/app_repo/install?${params}`
     }
 
     /**
@@ -107,7 +107,7 @@ export default class App {
     /**
      * Checks version
      * Increment version
-     * Makes the request to SNow api install_app
+     * Makes the request to ServiceNow api install_app
      * Prints the progress
      * @returns         Promise void
      */

@@ -4,7 +4,7 @@ export interface User {
 }
 
 export interface AppProps extends User {
-    snowInstallInstance: string;
+    nowInstallInstance: string;
     appSysID?: string;
     scope?: string;
     appDebug?: boolean,
@@ -28,9 +28,9 @@ export interface ErrorResult {
 }
 
 export enum Errors {
-    USERNAME = 'snowUsername is not set',
-    PASSWORD = 'snowPassword is not set',
-    INSTALL_INSTANCE = 'snowInstallInstance is not set',
+    USERNAME = 'nowUsername is not set',
+    PASSWORD = 'nowPassword is not set',
+    INSTALL_INSTANCE = 'nowInstallInstance is not set',
     SYSID_OR_SCOPE = 'Please specify scope or sys_id',
     INCORRECT_CONFIG = 'Configuration is incorrect',
     CANCELLED = 'Canceled',

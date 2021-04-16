@@ -15,9 +15,9 @@ Installs the specified application from the application repository onto the loca
 On GitHub, go in your repository settings, click on the secret _Secrets_ and create a new secret.
 
 Create secrets called 
-- `SNOW_USERNAME`
-- `SNOW_PASSWORD`
-- `SNOW_INSTALL_INSTANCE` only the **domain** string is required from the instance URL, for example https://**domain**.service-now.com
+- `NOW_USERNAME`
+- `NOW_PASSWORD`
+- `NOW_INSTALL_INSTANCE` only the **domain** string is required from the instance URL, for example https://**domain**.service-now.com
 - `APP_SYS_ID` or `APP_SCOPE`
 
 ## Step 3: Example Workflow Template
@@ -31,13 +31,13 @@ https://github.com/ServiceNow/sncicd_githubworkflow
   with:
     version: ${{steps.publish_app.outputs.newVersion}}
   env:
-    snowUsername: ${{ secrets.SNOW_USERNAME }}
-    snowPassword: ${{ secrets.SNOW_PASSWORD }}
-    snowInstallInstance: ${{ secrets.SNOW_INSTALL_INSTANCE }}
+    nowUsername: ${{ secrets.NOW_USERNAME }}
+    nowPassword: ${{ secrets.NOW_PASSWORD }}
+    nowInstallInstance: ${{ secrets.NOW_INSTALL_INSTANCE }}
     appSysID: ${{ secrets.APP_SYS_ID }}
     appScope: ${{ secrets.APP_SCOPE }}
-    baseAppVersion: ${{ secrets.SNOW_BASE_APP_VERSION }}
-    autoUpgradeBaseApp: ${{ secrets.SNOW_AUTO_UPGRADE_BASE_APP }}
+    baseAppVersion: ${{ secrets.NOW_BASE_APP_VERSION }}
+    autoUpgradeBaseApp: ${{ secrets.NOW_AUTO_UPGRADE_BASE_APP }}
 ```
 Inputs:
 - **version** - Application version to install. Takes the version from the publish application step. steps._**publish_app**_.outputs.newVersion is an id of the step
@@ -46,9 +46,9 @@ Outputs:
 - **rollbackVersion** - The previously installed version.
     
 Environment variable should be set up in the Step 1
-- snowUsername - Username to ServiceNow instance
-- snowPassword - Password to ServiceNow instance
-- snowInstallInstance - ServiceNow instance where application will be installed
+- nowUsername - Username to ServiceNow instance
+- nowPassword - Password to ServiceNow instance
+- nowInstallInstance - ServiceNow instance where application will be installed
 - appSysID - Required if app_scope is not specified. The sys_id of the application
 - appScope - Required if app_sys_id is not specified. The scope name of the application, such as x_aah_custom_app
 - baseAppVersion - Only applicable if Application Customization is active. Version of the base application on which to apply the customizations
