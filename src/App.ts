@@ -86,10 +86,8 @@ export default class App {
             params.sys_id = this.props.appSysID
         }
 
-        const {
-            baseAppVersion,
-            autoUpgradeBaseApp,
-        } = process.env;
+        const baseAppVersion = core.getInput('baseAppVersion');
+        const autoUpgradeBaseApp = core.getInput('autoUpgradeBaseApp');
 
         const options: requestOptions = {
             ...params,
