@@ -94,12 +94,11 @@ export default class App {
             ...(baseAppVersion && {base_app_version: baseAppVersion}),
             version,
         }
-        // @ts-ignore
+
         if (autoUpgradeBaseApp === 'true' || autoUpgradeBaseApp === 'false') {
-            // @ts-ignore
             options.auto_upgrade_base_app = autoUpgradeBaseApp === 'true' ? true : false;
         }
-console.log("options=", options)
+        
         return options;
     }
 
