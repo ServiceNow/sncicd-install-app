@@ -6,11 +6,11 @@ inputs:
     description: "Application version to install"
     required: true
   baseAppVersion:
-    description: "Application version to install"
-    required: true
+    description: "Version of the base application on which to apply the customizations"
+    required: false
   autoUpgradeBaseApp:
-    description: "Application version to install"
-    required: true
+    description: "Only applicable if Application Customization is active and the associated application is a higher version than the currently installed version"
+    required: false
 outputs:
   rollbackVersion:
     description: "Previously installed app's version, used to roll-back task"
