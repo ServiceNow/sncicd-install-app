@@ -86,21 +86,19 @@ export default class App {
             params.sys_id = this.props.appSysID
         }
 
-        const {
-            baseAppVersion,
-            autoUpgradeBaseApp,
-        } = process.env;
+        const baseAppVersion = core.getInput('baseAppVersion');
+        const autoUpgradeBaseApp = core.getInput('autoUpgradeBaseApp');
 
         const options: requestOptions = {
             ...params,
             ...(baseAppVersion && {base_app_version: baseAppVersion}),
             version,
         }
-        
-        if (autoUpgradeBaseApp === 'true' || autoUpgradeBaseApp === 'false') {
-            options.auto_upgrade_base_app = autoUpgradeBaseApp === 'true' ? true : undefined;
-        }
 
+        if (autoUpgradeBaseApp === 'true' || autoUpgradeBaseApp === 'false') {
+            options.auto_upgrade_base_app = autoUpgradeBaseApp === 'true' ? true : false;
+        }
+        
         return options;
     }
 

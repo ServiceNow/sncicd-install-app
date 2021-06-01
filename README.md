@@ -8,8 +8,6 @@ Installs the specified application from the application repository onto the loca
 - instance URLs for your dev, test, prod, etc. environments
 - sys_id or scope for your app
 - sys_id for your ATF Test Suite
-- base_app_version(optional)
-- auto_upgrade_base_app(optional)
 
 ## Step 2: Configure Secrets in your GitHub repository
 On GitHub, go in your repository settings, click on the secret _Secrets_ and create a new secret.
@@ -30,17 +28,19 @@ https://github.com/ServiceNow/sncicd_githubworkflow
   uses: ServiceNow/sncicd-install-app # like username/repo-name
   with:
     version: ${{steps.publish_app.outputs.newVersion}}
+    baseAppVersion: '<version>' # optional
+    autoUpgradeBaseApp: true    # optional
   env:
     nowUsername: ${{ secrets.NOW_USERNAME }}
     nowPassword: ${{ secrets.NOW_PASSWORD }}
     nowInstallInstance: ${{ secrets.NOW_INSTALL_INSTANCE }}
     appSysID: ${{ secrets.APP_SYS_ID }}
     appScope: ${{ secrets.APP_SCOPE }}
-    baseAppVersion: ${{ secrets.NOW_BASE_APP_VERSION }}
-    autoUpgradeBaseApp: ${{ secrets.NOW_AUTO_UPGRADE_BASE_APP }}
 ```
 Inputs:
 - **version** - Application version to install. Takes the version from the publish application step. steps._**publish_app**_.outputs.newVersion is an id of the step
+- **baseAppVersion** - Only applicable if Application Customization is active. Version of the base application on which to apply the customizations(Optional)
+- **autoUpgradeBaseApp** - Only applicable if Application Customization is active and the associated application is a higher version than the currently installed version(Optional, Default: false)
     
 Outputs:
 - **rollbackVersion** - The previously installed version.
@@ -51,8 +51,6 @@ Environment variable should be set up in the Step 1
 - nowInstallInstance - ServiceNow instance where application will be installed
 - appSysID - Required if app_scope is not specified. The sys_id of the application
 - appScope - Required if app_sys_id is not specified. The scope name of the application, such as x_aah_custom_app
-- baseAppVersion - Only applicable if Application Customization is active. Version of the base application on which to apply the customizations
-- autoUpgradeBaseApp - Only applicable if Application Customization is active and the associated application is a higher version than the currently installed version(Default: false)
 
 # Contributing
 
